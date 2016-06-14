@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: perf-nginx
+spec:
+  ports:
+  - port: 8000
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: perf-nginx
+----
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: perf-nginx
+spec:
+  replicas: 1
+  selector:
+    app: perf-nginx
+  template:
+    metadata:
+      labels:
+        app: perf-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+      nodeSelector:
+          ndslabs-node-role: compute

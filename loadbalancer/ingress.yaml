@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: perf-ingress
+spec:
+  rules:
+  - host: perf-nginx.test.ndslabs.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: perf-nginx
+          servicePort: 8000
